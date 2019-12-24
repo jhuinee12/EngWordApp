@@ -16,9 +16,6 @@ public class ActivityStudy5 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study5);
         mWordTest = (StudyView5) findViewById(R.id.mWordTest);
-
-        //가로모드고정
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     @Override
