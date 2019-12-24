@@ -11,6 +11,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,3 +58,4 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 }
+
