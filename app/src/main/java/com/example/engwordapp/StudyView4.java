@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -109,10 +110,7 @@ public class StudyView4 extends SurfaceView implements Callback{
     MyButton4 btnSub13;
     MyButton4 btnSub14;
 
-
     MyButton4 btnWordSave;
-
-    MyButton4 btnKakaoQSending;
 
     MyButton4 btnLeftArrow;   //left
     MyButton4 btnRightArrow;   //right
@@ -169,8 +167,10 @@ public class StudyView4 extends SurfaceView implements Callback{
     private void initAll() {
         m_helper = new MyDBHelper(mContext, "testforeng.db", null, 1);
         Display display = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        Width = display.getWidth();
-        Height = display.getHeight();
+        Point size = new Point();
+        display.getSize(size);
+        Width = size.x;
+        Height = size.y;
         textSizeChanging = (int) (Width * 64 / 1280);
         if (Width > 1700) textSizeForG4 = 120;
 
@@ -193,10 +193,7 @@ public class StudyView4 extends SurfaceView implements Callback{
         btnPreviousQuestion = new MyButton4(Width - btnWordSelection.w * 6, btnNum1.y + btnNum1.h * 2 + 1, 12, 0); //다음문제
         btnSolveAgain = new MyButton4(Width - btnWordSelection.w * 6, btnPreviousQuestion.y + btnPreviousQuestion.h * 2 + 1, 13, 0); //다시풀기
 
-        btnWordSave = new MyButton4(Width - btnWordSelection.w * 6, btnSolveAgain.y + btnSolveAgain.h * 2 + 1, 23, 0); //단어장등록
-
-        // 카카오 문제보내기 버튼
-        btnKakaoQSending = new MyButton4(Width - btnWordSelection.w * 11, btnNum1.y + btnNum1.h * 2 + 1, 33, 0);
+        btnWordSave = new MyButton4(Width - btnWordSelection.w * 6, btnSolveAgain.y + btnSolveAgain.h * 2 + 1, 23, 0);
 
         btnSub1 = new MyButton4(btnNext.x + 10, btnWordSelection.y + btnWordSelection.h * 2 + 5, 0,1);
         btnSub2 = new MyButton4(btnSub1.x + btnSub1.w * 2, btnSub1.y, 1,1);
@@ -378,8 +375,6 @@ public class StudyView4 extends SurfaceView implements Callback{
                 canvas.drawBitmap(btnNum2.button_img, btnNum2.x, btnNum2.y, null);
                 canvas.drawBitmap(btnNum3.button_img, btnNum3.x, btnNum3.y, null);
                 canvas.drawBitmap(btnNum4.button_img, btnNum4.x, btnNum4.y, null);
-
-                canvas.drawBitmap(btnKakaoQSending.button_img, btnKakaoQSending.x, btnKakaoQSending.y, null);
             }
 
             if (submenuOk == 0 && submenuOk2 == 0) {
@@ -855,14 +850,6 @@ public class StudyView4 extends SurfaceView implements Callback{
                 toast.show();
             }
 
-        //카카오톡으로 문제 보내기
-        if (submenuOk == 0 && answerButton == 0)
-            if (x > btnKakaoQSending.x && x < (btnKakaoQSending.x + btnKakaoQSending.w * 2) && y > btnKakaoQSending.y && y
-                    < (btnKakaoQSending.y + btnKakaoQSending.h * 2)) {
-
-                controlButton();
-            }
-
         // submenu 1
         if (submenuOk == 1)
             if (x > btnSub1.x && x < (btnSub1.x + btnSub1.w * 2) && y > btnSub1.y && y < (btnSub1.y + btnSub1.h * 2)) {
@@ -1061,87 +1048,6 @@ public class StudyView4 extends SurfaceView implements Callback{
 
         return false;
     }  //End of onTouchEvent
-
-
-    public void controlButton() {
-
-        ArrayList<Map<String, String>> metaInfoArray = new ArrayList<Map<String, String>>();
-        Map<String, String> metaInfoAndroid = new Hashtable<String, String>(1);
-        metaInfoAndroid.put("os", "android");
-        metaInfoAndroid.put("devicetype", "phone");
-        metaInfoAndroid.put("installurl", "m");
-        metaInfoAndroid.put("executeurl", "csc");
-        Map<String, String> metaInfoIOS = new Hashtable<String, String>(1);
-        metaInfoIOS.put("os", "ios");
-        metaInfoIOS.put("devicetype", "phone");
-        metaInfoIOS.put("installurl", "your iOS app install url");
-        metaInfoIOS.put("executeurl", "");
-        metaInfoArray.add(metaInfoAndroid);
-        metaInfoArray.add(metaInfoIOS);
-/*        KakaoLink kakaoLink = KakaoLink.getLink(mContext);
-        if (!kakaoLink.isAvailableIntent()) {
-            //	Toast toast = Toast.makeText(mContext,"īī������ ���������� ��ġ���� �ʾҽ��ϴ�.", 1000);
-            //  Toast toast = Toast.makeText(mContext, "", 1000);
-            //  toast.show();
-            return;
-        }
-        try {
-
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "친구야 영어단어문제를 풀어 보렴~" + '\n');
-            intent.putExtra(Intent.EXTRA_TEXT, "(문제)  " + FileSplit0.questionNum[questionNumber][1] + "?" + '\n' +
-                    "1번: " + FileSplit0.questionNum[questionNumber][2] + "  " + '\n'
-                    + "2번: " + FileSplit0.questionNum[questionNumber][3] + "  " + '\n'
-                    + "3번: " + FileSplit0.questionNum[questionNumber][4] + "  " + '\n'
-                    + "4번: " + FileSplit0.questionNum[questionNumber][5]);
-            intent.setPackage("com.kakao.talk");
-            mContext.startActivity(intent);
-        } catch (Exception ex) {
-
-        }*/
-        return;
-    }
-
-
-    public void controlButton2() {
-        ArrayList<Map<String, String>> metaInfoArray = new ArrayList<Map<String, String>>();
-        Map<String, String> metaInfoAndroid = new Hashtable<String, String>(1);
-        metaInfoAndroid.put("os", "android");
-        metaInfoAndroid.put("devicetype", "phone");
-        metaInfoAndroid.put("installurl", "m");
-        metaInfoAndroid.put("executeurl", "csc");
-        Map<String, String> metaInfoIOS = new Hashtable<String, String>(1);
-        metaInfoIOS.put("os", "ios");
-        metaInfoIOS.put("devicetype", "phone");
-        metaInfoIOS.put("installurl", "your iOS app install url");
-        metaInfoIOS.put("executeurl", "");
-        metaInfoArray.add(metaInfoAndroid);
-        metaInfoArray.add(metaInfoIOS);
-/*        KakaoLink kakaoLink = KakaoLink.getLink(mContext);
-        if (!kakaoLink.isAvailableIntent()) {
-            //Toast toast = Toast.makeText(mContext,"īī������ ���������� ��ġ���� �ʾҽ��ϴ�.", 1000);
-            // Toast toast = Toast.makeText(mContext, "", 1000);
-            // toast.show();
-            return;
-        }
-        try {
-
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "정답을 보내요" + '\n');
-            intent.putExtra(Intent.EXTRA_TEXT, "(정답) " + FileSplit0.questionNum[questionNumber][1] + "?" + "  " +
-                    "" + FileSplit0.questionNum[questionNumber][6] + "  " + '\n'
-                    + "  " + FileSplit0.questionNum[questionNumber][7] + "  " + '\n'
-                    + "  " + FileSplit0.questionNum[questionNumber][8] + "  " + '\n'
-            );
-            intent.setPackage("com.kakao.talk");
-            mContext.startActivity(intent);
-        } catch (Exception ex) {
-
-        }*/
-        return;
-    }
 
     //-------------------------------------
     //  onKeyDown

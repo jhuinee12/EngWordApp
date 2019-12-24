@@ -1,5 +1,6 @@
 package com.example.engwordapp;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -13,6 +14,9 @@ public class ActivityStudy3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study3);
+
+        //가로모드고정
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     @Override

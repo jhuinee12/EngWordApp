@@ -3,6 +3,7 @@ package com.example.engwordapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main5).setOnClickListener(myClick);
         findViewById(R.id.main6).setOnClickListener(myClick);
         findViewById(R.id.main7).setOnClickListener(myClick);
+
+        //가로모드고정
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     Button.OnClickListener myClick = new Button.OnClickListener() {

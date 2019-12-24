@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -145,8 +146,10 @@ public class StudyView5 extends SurfaceView implements Callback {
     private void initAll() {
         Display display = ((WindowManager) mContext.getSystemService
                 (Context.WINDOW_SERVICE)).getDefaultDisplay();
-        Width = display.getWidth();
-        Height = display.getHeight();
+        Point size = new Point();
+        display.getSize(size);
+        Width = size.x;
+        Height = size.y;
 
         m_helper = new DBHelper(mContext, "test.db", null, 1);
         mFile2 = new FileTable();
